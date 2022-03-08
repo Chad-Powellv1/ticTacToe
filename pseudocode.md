@@ -22,15 +22,14 @@
 - ### **Game**  (Model)
 
     // Properties
-    -	Board is an array of [0 - 8]
-    -	Player one displays 'X'
-    -	Player two displays 'O'
-    -	Turn equals 0
+    - Board is an array of [0 - 8]
+    - Player one displays 'X'
+    - Player two displays 'O'
+    - Turn equals 0
 
 
     // Methods
-    - Win Condition: if current players has some combination of the below arrays, for example if current player has 
-        array index 2, board positions 6 - 8 then they have met a win condition.
+    - Win Condition: if current players has some combination of the below arrays. The some() method can be used to check if the current player has any combination of the current win conditions.
     [
       [0, 1, 2],   
       [3, 4, 5],    
