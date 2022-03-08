@@ -1,3 +1,4 @@
+
 // Model
 class Game {
 	constructor() {}
@@ -10,7 +11,11 @@ class View {
 
 // Controller
 class Controller {
-	constructor() {}
+	constructor() {
+
+    }
+
+
 }
 
 // Tile
