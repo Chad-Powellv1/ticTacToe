@@ -22,10 +22,10 @@
 - ### **Game**  (Model)
 
     // Properties
-    - Board is an array of [0 - 8]
-    - Player one displays 'X'
-    - Player two displays 'O'
+    - Board is an array of Array(9).fill() will fill the array will blank spaces [0 - 8]
+    - Current player = 'X'
     - Turn equals 0
+    - Game Over = false;
 
 
     // Methods
@@ -41,11 +41,20 @@
       [2, 4, 6]
     ]
     - Update state:
-      - IF Turn > 5 Check for Win Conditions 
-      - Else Switch player
+      - Game over OR turn less than 5 or turn greater than 8 or board array full 
+        return false 
+      - Current player equals board turn 
+      - Game over equals win condition OR draw condition
+      - IF game not over switch player
+        return true
+
     - Switch player, will provide the conditions on when to switch from player one to player two based on current state
+      - if Current player === 'X'
+        Then switch to player 'O'
+
     - Draw conditions, will provide the parameters to determine what constitutes a draw
-    - 
+      - if all of the tiles or cells on the board have player icons with not win conditions then it is a draw.
+      - The every method can be used to check if the board array index is filled at every index.
 
 <br/>
 
@@ -57,9 +66,9 @@
     // Methods
     - Render
       - Create title, board, and reset button
-    - Update tile, will draw the player icon when tile clicked by player
-    - Winner, will display the winning player when win condition is met
-    - Draw, will display a draw message when the draw condition is met
+      - Update tile, will draw the player icon when tile clicked by player
+      - Winner, will display the winning player when win condition is met
+      - Draw, will display a draw message when the draw condition is met
 
 <br/>
 
@@ -73,6 +82,7 @@
     // Methods
     - Reset game, will clear the tile of all player icons and reset game state without refreshing the page.
     - Player move, will handle current players icon on clicked tile and lock it from being clicked again.
+    - Update View, 
 
 
 <br/>
@@ -82,10 +92,7 @@
     - Clicked equals false
     - Locked equals false
     
-```
-START
 
-INIT
 
 
 

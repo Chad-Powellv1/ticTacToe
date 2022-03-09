@@ -9,3 +9,22 @@ const WIN_COND =[
     [2, 4, 6]
 ];
 
+const HTML = [
+	{
+		type: "div",
+		class: "h1",
+        text: "Tic Tac Toe"
+	},
+
+	{
+		type: "div",
+		class: "row md-4",
+	},
+
+	{
+		type: "div",
+		class: "col-4 borders fs-1",
+	}
+]
+
+
