@@ -14,7 +14,7 @@ const HTML = [
 
 	{
 		type: "div",
-		class: "col-4 pt-5 pb-5 text-center border border-success fs-1",
+		class: "col-4 pt-5 pb-5 text-center border border-success fs-1"
 	}
 ]
 

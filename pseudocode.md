@@ -65,7 +65,11 @@
 
     // Methods
     - Render
-      - Create title, board, and reset button
+      - Create title, 
+      - Create board, 
+        - Create a loop to dynamically create columns
+        - Create event listener for each column
+      - Create reset button
       - Update tile, will draw the player icon when tile clicked by player
       - Winner, will display the winning player when win condition is met
       - Draw, will display a draw message when the draw condition is met
@@ -81,16 +85,15 @@
 
     // Methods
     - Reset game, will clear the tile of all player icons and reset game state without refreshing the page.
-    - Player move, will handle current players icon on clicked tile and lock it from being clicked again.
+    - Handle turns, pass through the column index 
+      - If turn is player 1 place X
+      - Else place O
     - Update View, 
 
 
 <br/>
 
-- ### **Tile**:
-    //Properties
-    - Clicked equals false
-    - Locked equals false
+
     
 
 
