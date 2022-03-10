@@ -6,12 +6,12 @@ class Game {
 		this.turn = 0;
 		this.clicked = false;
 		this.gameOver = false;
-
+		
 	}
 
 	setState(i, e) {
 
-		if(!this.gameOver && this.board[i].clicked) {
+		if(!this.gameOver && !this.board[i]) {
 			if (this.turn % 2 == 1) {
 
 				this.board[i].textContent = 'X';
@@ -27,17 +27,20 @@ class Game {
 
 			
 		}
+
+
 	}
 }
 
 // View
 class View {
-	constructor() {
+	constructor(model) {
+		this.m = model;
 		this.restartButton = null;
 		
 	}
 
-	render() {
+	render(setState) {
 
 		// GENERATE TITLE
 		let app = document.getElementById('app');
@@ -58,11 +61,13 @@ class View {
 			col.setAttribute('class', `${HTML[2].class}`);
 			col.setAttribute('type', `${HTML[2].type}`);
 			col.addEventListener('click', (e) => {
-				e.target.enabled = true;
+				setState(i,e)
 				console.log(e)
 			})
-			row.appendChild(col);
 			
+			
+			
+			row.appendChild(col);
 		}
 		app.appendChild(row);
 		
@@ -73,7 +78,7 @@ class View {
 		resetButton.textContent = `${HTML[3].text}`;
 		row.appendChild(resetButton);
 
-		this.restartButton.addEventListener('click', )
+		// this.restartButton.addEventListener('click', )
 	}
 }
 
@@ -82,7 +87,7 @@ class Controller {
 	constructor() {
 		this.m = new Game();
 		this.v = new View();
-		
+		this.v.render(this.m.setState.bind(this.m))
 	}
 
 	run() {
@@ -92,4 +97,4 @@ class Controller {
 
 // new Controller
 let game = new Controller();
-game.run();
+

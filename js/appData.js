@@ -23,7 +23,8 @@ const HTML = [
 	{
 		div: 'div',
 		class: 'col-4 pt-5 pb-5 text-center border border-success fs-1',
-		type: "button"
+		type: "button",
+		id: "clickable"
 
 	},
 
