@@ -5,13 +5,13 @@ class Game {
 		this.currentPlayer = 'X';
 		this.turn = 0;
 		this.gameOver = false;
-		this.value = 0;
+		
 
 
 		
 	}
 
-	gameState = (render) => {
+	gameState = () => {
 		this.winCondition = [
 			[0, 1, 2],
 			[3, 4, 5],
@@ -26,18 +26,17 @@ class Game {
 		for (let i = 0; i < this.winCondition.length; i++) {
 			let sum = 0;
 			for (let j = 0; j < this.winCondition[i].length; j++) {
-				sum += this.board[this.winCondition[i][j]].value;
-				if(sum === 6) {
+				sum += this.board[this.winCondition[i][j]].dataset.index;
+				if(sum === 3) {
+					
 					this.gameOver = true;
-					this.note.removeClass('d-none');
-					this.note.addClass('d-block');
 					this.note.textContent = "X is the winner! 👏";
 					this.turn.textContent = '';
 				}
 
-				if(sum === 12) {
+				if(sum === 15) {
+
 					this.gameOver = true;
-					this.note.style.display = 'd-block';
 					this.note.textContent = 'O is the winner! 👏';
 					this.turn.textContent = '';
 				}
@@ -59,14 +58,14 @@ class Game {
 			if (this.turn % 2 == 0) {
 
 				this.board[i].textContent = this.currentPlayer;
-				this.board[i].value = 2;
+				this.board[i].dataset.index = 1;
 				// display player X turn
 			}
 
 			else {
 
 				this.board[i].textContent = 'O';
-				this.board[i].value = 4;
+				this.board[i].dataset.index= 5;
 				// display player O turn
 			}
 
@@ -112,6 +111,7 @@ class View {
 			let col = document.createElement(`${HTML[2].div}`);
 			col.setAttribute('class', `${HTML[2].class}`);
 			col.setAttribute('type', `${HTML[2].type}`);
+			col.setAttribute('data-index', i);
 			col.addEventListener('click', (e) => {
 				setState(i,e)
 				console.log(e)
