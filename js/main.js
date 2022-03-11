@@ -1,19 +1,20 @@
-// Model
+// Model  REMEMBER ORDER IS IMPORTANT!!!
 class Game {
 	constructor() {
 		this.board = [];
 		this.currentPlayer = 'X';
 		this.turn = 0;
-		this.clicked = false;
 		this.gameOver = false;
+
+
 		
 	}
 
-	setState(i, e) {
-
-		if(!this.gameOver && !this.board[i]) {
-			if (this.turn % 2 == 1) {
-
+	setState = (i, e) => {
+		// [0,1,2,3,4,5,6,7,8,9]
+		if(!this.gameOver) { // don't you want to check the !this.gameOver? Makes Sense.
+			console.log(this)
+			if (this.turn % 2 == 0) {
 				this.board[i].textContent = 'X';
 			}
 
@@ -28,7 +29,32 @@ class Game {
 			
 		}
 
+	}
 
+	gameState() {
+		for (let i = 0; i < `${WIN_COND}`[i].length; i++) {
+			let sum = 0;
+			for (let j = 0; j < `${WIN_COND}`[i].length; j++) {
+				sum += this.board[`${WIN_COND}`[i][j]].value;
+				if(sum === 3) {
+					this.notification.textContent = "X is the winner! 👏";
+					this.gameOver = true;
+					this.turn.textContent = '';
+				}
+
+				if(total === 15) {
+					this.notification.textContent = 'O is the winner! 👏';
+					this.gameOver = true;
+					this.turn.textContent = '';
+				}
+			}
+			sum = 0;
+		}
+
+		if(this.turn === 9 && this.gameOver === false) {
+			this.notification.textContent = 'No winner, the game is a draw. 😵'
+			this.turn.textContent = '';
+		}
 	}
 }
 
@@ -40,7 +66,7 @@ class View {
 		
 	}
 
-	render(setState) {
+	render(setState,board) {
 
 		// GENERATE TITLE
 		let app = document.getElementById('app');
@@ -63,8 +89,8 @@ class View {
 			col.addEventListener('click', (e) => {
 				setState(i,e)
 				console.log(e)
-			})
-			
+			}, { once: true })
+			board.push(col)
 			
 			
 			row.appendChild(col);
@@ -79,6 +105,9 @@ class View {
 		row.appendChild(resetButton);
 
 		// this.restartButton.addEventListener('click', )
+
+		//CREATE WINNER NOTIFICATION
+
 	}
 }
 
@@ -87,7 +116,7 @@ class Controller {
 	constructor() {
 		this.m = new Game();
 		this.v = new View();
-		this.v.render(this.m.setState.bind(this.m))
+		this.v.render(this.m.setState,this.m.board)
 	}
 
 	run() {
