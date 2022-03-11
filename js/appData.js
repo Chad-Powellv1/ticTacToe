@@ -27,8 +27,6 @@ const HTML = [
 
 	{
 		"div": "div",
-		"class": "h5 text-center mb-2 hidden"
+		"class": "h5 text-center mb-2"
 	}
-
-
 ];
