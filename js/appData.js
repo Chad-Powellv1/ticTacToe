@@ -1,13 +1,3 @@
-const WIN_COND = [
-	[0, 1, 2],
-	[3, 4, 5],
-	[6, 7, 8],
-	[0, 3, 6],
-	[1, 4, 7],
-	[2, 5, 8][(0, 4, 8)],
-	[2, 4, 6],
-];
-
 const HTML = [
 	{
 		"div": "div",
@@ -33,5 +23,12 @@ const HTML = [
 		"type": "button",
 		"class": "col-4 btn btn-danger btn-lg mt-5",
 		"text": "Reset Game"
+	},
+
+	{
+		"div": "div",
+		"class": "h5 text-center mb-2 hidden"
 	}
+
+
 ];

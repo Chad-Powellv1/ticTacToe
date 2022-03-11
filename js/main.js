@@ -5,57 +5,83 @@ class Game {
 		this.currentPlayer = 'X';
 		this.turn = 0;
 		this.gameOver = false;
+		this.value = 0;
 
 
 		
 	}
 
-	setState = (i, e) => {
-		// [0,1,2,3,4,5,6,7,8,9]
-		if(!this.gameOver) { // don't you want to check the !this.gameOver? Makes Sense.
-			console.log(this)
-			if (this.turn % 2 == 0) {
-				this.board[i].textContent = 'X';
-			}
-
-			else {
-
-				this.board[i].textContent = 'O';
-			}
-
-			this.board[i].clicked = true;
-			this.turn++;
-
-			
-		}
-
-	}
-
-	gameState() {
-		for (let i = 0; i < `${WIN_COND}`[i].length; i++) {
+	gameState = (render) => {
+		this.winCondition = [
+			[0, 1, 2],
+			[3, 4, 5],
+			[6, 7, 8],
+			[0, 3, 6],
+			[1, 4, 7],
+			[2, 5, 8],
+			[0, 4, 8],
+			[2, 4, 6],
+		];
+		
+		for (let i = 0; i < this.winCondition.length; i++) {
 			let sum = 0;
-			for (let j = 0; j < `${WIN_COND}`[i].length; j++) {
-				sum += this.board[`${WIN_COND}`[i][j]].value;
-				if(sum === 3) {
-					this.notification.textContent = "X is the winner! 👏";
+			for (let j = 0; j < this.winCondition[i].length; j++) {
+				sum += this.board[this.winCondition[i][j]].value;
+				if(sum === 6) {
 					this.gameOver = true;
+					this.note.removeClass('d-none');
+					this.note.addClass('d-block');
+					this.note.textContent = "X is the winner! 👏";
 					this.turn.textContent = '';
 				}
 
-				if(total === 15) {
-					this.notification.textContent = 'O is the winner! 👏';
+				if(sum === 12) {
 					this.gameOver = true;
+					this.note.style.display = 'd-block';
+					this.note.textContent = 'O is the winner! 👏';
 					this.turn.textContent = '';
 				}
 			}
 			sum = 0;
 		}
 
-		if(this.turn === 9 && this.gameOver === false) {
-			this.notification.textContent = 'No winner, the game is a draw. 😵'
+		if(this.turn === 9 && this.gameOver) {
+			this.gameOver = true;
+			this.note.textContent = 'No winner, the game is a draw. 😵'
 			this.turn.textContent = '';
 		}
 	}
+
+	setState = (i, e, gameState) => {
+		
+		if(!this.gameOver) { 
+			
+			if (this.turn % 2 == 0) {
+
+				this.board[i].textContent = this.currentPlayer;
+				this.board[i].value = 2;
+				// display player X turn
+			}
+
+			else {
+
+				this.board[i].textContent = 'O';
+				this.board[i].value = 4;
+				// display player O turn
+			}
+
+			this.turn++;
+
+			if(this.turn >= 5) {
+				this.gameState();
+			}
+
+			
+		}
+
+	}
+
+
 }
 
 // View
@@ -107,7 +133,9 @@ class View {
 		// this.restartButton.addEventListener('click', )
 
 		//CREATE WINNER NOTIFICATION
-
+		let note = document.createElement(`${HTML[4].div}`);
+		note.setAttribute('class', `${HTML[4].class}`)
+		resetButton.appendChild(note);
 	}
 }
 
@@ -116,7 +144,7 @@ class Controller {
 	constructor() {
 		this.m = new Game();
 		this.v = new View();
-		this.v.render(this.m.setState,this.m.board)
+		this.v.render(this.m.setState,this.m.board,this.m.gameState)
 	}
 
 	run() {
