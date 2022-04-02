@@ -1,89 +1,52 @@
-// Model  REMEMBER ORDER IS IMPORTANT!!!
+/* --- MODEL --- */
 class Game {
 	constructor() {
-		this.board = [];
+		this.board = Array(9).fill()
 		this.currentPlayer = 'X';
 		this.turn = 0;
-		this.gameOver = false;
-		
-
-
-		
-	}
-
-	gameState = () => {
-		this.winCondition = [
-			[0, 1, 2],
-			[3, 4, 5],
-			[6, 7, 8],
-			[0, 3, 6],
-			[1, 4, 7],
-			[2, 5, 8],
-			[0, 4, 8],
-			[2, 4, 6],
-		];
-		
-		for (let i = 0; i < this.winCondition.length; i++) {
-			let sum = 0;
-			for (let j = 0; j < this.winCondition[i].length; j++) {
-				sum += this.board[this.winCondition[i][j]].dataset.index;
-				if(sum === 3) {
-					
-					this.gameOver = true;
-					this.note.textContent = "X is the winner! 👏";
-					this.turn.textContent = '';
-				}
-
-				if(sum === 15) {
-
-					this.gameOver = true;
-					this.note.textContent = 'O is the winner! 👏';
-					this.turn.textContent = '';
-				}
-			}
-			sum = 0;
-		}
-
-		if(this.turn === 9 && this.gameOver) {
-			this.gameOver = true;
-			this.note.textContent = 'No winner, the game is a draw. 😵'
-			this.turn.textContent = '';
-		}
+		this.gameOver = false;	
 	}
 
 	setState = (i, e, gameState) => {
-		
 		if(!this.gameOver) { 
-			
 			if (this.turn % 2 == 0) {
-
 				this.board[i].textContent = this.currentPlayer;
 				this.board[i].dataset.index = 1;
-				// display player X turn
 			}
-
 			else {
-
 				this.board[i].textContent = 'O';
 				this.board[i].dataset.index= 5;
-				// display player O turn
 			}
-
 			this.turn++;
-
 			if(this.turn >= 5) {
 				this.gameState();
 			}
-
-			
 		}
+	}
+
+	setGameOver() {
+		/* --- WIN CONDITIONS --- */
+		const winner = WIN_CON.some((win) => {
+			let firstCon = WIN_CON[0];
+			let secondCon = WIN_CON[2];
+			let thirdCon = WIN_CON[3];
+
+			return(
+				this.board[firstCon] &&
+				this.board[firstCon] === this.board[secondCon] &&
+				this.board[secondCon] === this.board[thirdCon]
+			)
+		})
+
+		/* --- DRAW CONDITIONS --- */
+
 
 	}
 
-
+	
 }
 
-// View
+/* --- VIEW --- */
 class View {
 	constructor(model) {
 		this.m = model;
@@ -93,7 +56,7 @@ class View {
 
 	render(setState,board) {
 
-		// GENERATE TITLE
+		/* --- GENERATE TITLE --- */ 
 		let app = document.getElementById('app');
 		let title = document.createElement(`${HTML[0].div}`);
 		title.setAttribute('class',`${HTML[0].class}`);
@@ -104,7 +67,7 @@ class View {
 		title.textContent = `${HTML[0].text}`
 		app.appendChild(title);
 
-		//GENERATE BOARD
+		/* --- GENERATE BOARD --- */
 		let row = document.createElement(`${HTML[1].div}`);
 		row.setAttribute('class', `${HTML[1].class}`);
 		for(let i = 0; i < 9; i++) {
@@ -123,7 +86,7 @@ class View {
 		}
 		app.appendChild(row);
 		
-		//RESET BUTTON
+		/* --- RESET BUTTON --- */
 		let resetButton = document.createElement(`${HTML[3].div}`);
 		resetButton.setAttribute('type', `${HTML[3].type}`);
 		resetButton.setAttribute('class', `${HTML[3].class}`);
@@ -139,7 +102,7 @@ class View {
 	}
 }
 
-// Controller
+/* --- CONTROLLER --- */ 
 class Controller {
 	constructor() {
 		this.m = new Game();
